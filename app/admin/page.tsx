@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
 const supabaseUrl = "https://gzxyhwhlsxcqjuinjjlg.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6eXlod2hsc3hjcWp1aW5qamxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIzMTEsImV4cCI6MjA4NjEzODMxMX0.XtBANUch1vkrrSMTy-V9FELtjH56lz6ostPOmCACxjk";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6eHlod2hsc3hjcWp1aW5qamxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIzMTEsImV4cCI6MjA4NjEzODMxMX0.XtBANUch1vkrrSMTy-V9FELtjH56lz6ostPOmCACxjk";
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -196,7 +196,6 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Header */}
       <header className="bg-white shadow-lg border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
@@ -209,7 +208,7 @@ export default function AdminPage() {
               </p>
             </div>
             <div className="flex gap-3">
-              
+              <a
                 href="/"
                 className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition"
               >
@@ -226,10 +225,8 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Linke Seite: Editor */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
             {editingPost && (
               <div className="mb-4 p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
@@ -272,7 +269,6 @@ export default function AdminPage() {
                   Inhalt - Formatierungs-Editor
                 </label>
                 
-                {/* Formatierungs-Toolbar */}
                 <div className="flex flex-wrap gap-1 mb-2 p-3 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border border-gray-300 shadow-sm">
                   <button
                     type="button"
@@ -343,7 +339,6 @@ export default function AdminPage() {
                   </button>
                 </div>
 
-                {/* Rich Text Editor - FEHLER BEHOBEN! */}
                 <div
                   ref={editorRef}
                   contentEditable
@@ -389,7 +384,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Rechte Seite: Live-Vorschau */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4">
               <h2 className="text-2xl font-bold text-white flex items-center gap-2">
@@ -405,7 +399,6 @@ export default function AdminPage() {
                 </div>
               ) : (
                 <article className="bg-white rounded-lg border-2 border-gray-200 overflow-hidden shadow-lg">
-                  {/* Post Header */}
                   <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-5">
                     <h3 className="text-2xl font-bold text-white mb-2">
                       {title || "Dein Titel erscheint hier..."}
@@ -415,7 +408,6 @@ export default function AdminPage() {
                     </p>
                   </div>
 
-                  {/* Post Content */}
                   <div className="px-6 py-6">
                     <div 
                       className="prose prose-lg max-w-none text-gray-800"
@@ -426,7 +418,6 @@ export default function AdminPage() {
                     />
                   </div>
 
-                  {/* Kommentar-Vorschau */}
                   <div className="px-6 py-5 bg-gray-50 border-t border-gray-200">
                     <h4 className="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
                       💬 Kommentare (0)
@@ -441,7 +432,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Posts verwalten */}
         <div className="mt-12 bg-white rounded-2xl shadow-xl p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             📚 Meine Posts verwalten ({posts.length})
@@ -493,7 +483,6 @@ export default function AdminPage() {
           )}
         </div>
 
-        {/* Hilfe-Bereich */}
         <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 shadow-md">
           <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
             💡 Formatierungs-Tipps für professionelle Posts:
