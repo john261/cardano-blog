@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
 const supabaseUrl = "https://gzxyhwhlsxcqjuinjjlg.supabase.co";
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6eHlod2hsc3hjcWp1aW5qamxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIzMTEsImV4cCI6MjA4NjEzODMxMX0.XtBANUch1vkrrSMTy-V9FELtjH56lz6ostPOmCACxjk";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6eXlod2hsc3hjcWp1aW5qamxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIzMTEsImV4cCI6MjA4NjEzODMxMX0.XtBANUch1vkrrSMTy-V9FELtjH56lz6ostPOmCACxjk";
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -209,7 +209,7 @@ export default function AdminPage() {
               </p>
             </div>
             <div className="flex gap-3">
-              <a
+              
                 href="/"
                 className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition"
               >
@@ -343,14 +343,13 @@ export default function AdminPage() {
                   </button>
                 </div>
 
-                {/* Rich Text Editor - GRÖßER! */}
+                {/* Rich Text Editor - FEHLER BEHOBEN! */}
                 <div
                   ref={editorRef}
                   contentEditable
                   onInput={handleEditorInput}
                   className="w-full min-h-[500px] px-5 py-4 bg-white border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-gray-900 overflow-y-auto shadow-inner"
                   style={{ maxHeight: '700px' }}
-                  placeholder="Beginne hier zu schreiben..."
                 />
                 <p className="text-xs text-gray-500 mt-2 flex items-center gap-2">
                   <span>💡</span>
