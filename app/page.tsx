@@ -491,7 +491,7 @@ export default function BlogPage() {
       <main className="max-w-7xl mx-auto px-6 py-16">
         <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Langfristige Forschungs- und Netzwerkanalyse
+            Cardano Deep Dives: Daten, Analysen, Insights
           </h2>
           <p className="text-gray-200 text-lg">
             Unabhängige Analysen zu On-Chain-Daten, Tokenomics und Risiko.
