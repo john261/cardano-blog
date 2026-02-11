@@ -157,6 +157,296 @@ export default function BlogPage() {
 
   const currentPost = selectedPost ? posts.find(p => p.id === selectedPost) : null;
 
+  // VOLLBILD ARTIKEL-ANSICHT
+  if (currentPost) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        {/* Header mit Zurück-Button */}
+        <header className="border-b border-slate-600 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+          <div className="max-w-4xl mx-auto px-6 py-4">
+            <button
+              onClick={() => setSelectedPost(null)}
+              className="flex items-center gap-2 text-gray-200 hover:text-white transition"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span className="font-medium">Zur Übersicht</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Artikel-Content */}
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <article className="mb-16">
+            {/* Artikel-Header */}
+            <div className="mb-10">
+              <span className="text-blue-400 text-sm font-semibold uppercase tracking-wide">
+                Cardano Research
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-6 leading-tight">
+                {currentPost.title}
+              </h1>
+              <div className="flex items-center gap-4 text-gray-300 text-sm">
+                <span>{formatDate(currentPost.created_at)}</span>
+                <span>•</span>
+                <span>{getReadingTime(currentPost.content)} Min. Lesezeit</span>
+              </div>
+            </div>
+
+            {/* Artikel-Inhalt */}
+            <div className="article-content" dangerouslySetInnerHTML={{ __html: currentPost.content }} />
+            
+            <style jsx>{`
+              .article-content {
+                color: white !important;
+                font-size: 1.125rem;
+                line-height: 1.8;
+              }
+              
+              .article-content * {
+                color: white !important;
+              }
+              
+              .article-content h1,
+              .article-content h2,
+              .article-content h3,
+              .article-content h4,
+              .article-content h5,
+              .article-content h6 {
+                color: white !important;
+                font-weight: bold;
+                margin-top: 2.5rem;
+                margin-bottom: 1.25rem;
+              }
+              
+              .article-content h1 { font-size: 2.5rem; }
+              .article-content h2 { font-size: 2rem; }
+              .article-content h3 { font-size: 1.625rem; }
+              .article-content h4 { font-size: 1.375rem; }
+              
+              .article-content p {
+                color: white !important;
+                margin-bottom: 1.75rem;
+                line-height: 1.9;
+              }
+              
+              .article-content a {
+                color: #60a5fa !important;
+                text-decoration: underline;
+              }
+              
+              .article-content a:hover {
+                color: #93c5fd !important;
+              }
+              
+              .article-content strong,
+              .article-content b {
+                color: white !important;
+                font-weight: 600;
+              }
+              
+              .article-content ul,
+              .article-content ol {
+                color: white !important;
+                margin-left: 2rem;
+                margin-bottom: 1.75rem;
+              }
+              
+              .article-content li {
+                color: white !important;
+                margin-bottom: 0.75rem;
+              }
+              
+              .article-content blockquote {
+                color: white !important;
+                border-left: 4px solid #3b82f6;
+                padding-left: 1.5rem;
+                margin: 2rem 0;
+                font-style: italic;
+                font-size: 1.125rem;
+              }
+              
+              .article-content code {
+                color: white !important;
+                background-color: rgba(51, 65, 85, 0.6);
+                padding: 0.25rem 0.5rem;
+                border-radius: 0.375rem;
+                font-size: 0.9em;
+                font-family: 'Courier New', monospace;
+              }
+              
+              .article-content pre {
+                background-color: rgba(51, 65, 85, 0.6);
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                overflow-x: auto;
+                margin-bottom: 2rem;
+                border: 1px solid rgba(148, 163, 184, 0.2);
+              }
+              
+              .article-content pre code {
+                background-color: transparent;
+                padding: 0;
+              }
+              
+              .article-content table {
+                color: white !important;
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 2rem;
+                border: 1px solid #475569;
+              }
+              
+              .article-content th,
+              .article-content td {
+                color: white !important;
+                border: 1px solid #475569;
+                padding: 0.875rem;
+                text-align: left;
+              }
+              
+              .article-content th {
+                background-color: rgba(51, 65, 85, 0.6);
+                font-weight: 600;
+              }
+              
+              .article-content img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 0.75rem;
+                margin: 2rem 0;
+              }
+            `}</style>
+          </article>
+
+          {/* Kommentar-Bereich */}
+          <div className="border-t border-slate-600 pt-12">
+            <h3 className="text-3xl font-bold text-white mb-8">
+              Diskussion ({comments[currentPost.id]?.length || 0})
+            </h3>
+
+            {/* Bestehende Kommentare */}
+            {comments[currentPost.id] && comments[currentPost.id].length > 0 && (
+              <div className="space-y-5 mb-10">
+                {comments[currentPost.id].map((comment) => (
+                  <div key={comment.id} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                        {comment.author_name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white text-base">{comment.author_name}</p>
+                        <p className="text-xs text-gray-400">{formatDate(comment.created_at)}</p>
+                      </div>
+                    </div>
+                    <p className="text-white leading-relaxed ml-14">{comment.comment_text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Kommentar-Formular */}
+            <div className="bg-slate-800/50 rounded-xl p-8 border border-slate-700">
+              <h4 className="font-bold text-white mb-6 text-xl">Kommentar verfassen</h4>
+              <form className="space-y-5">
+                <input
+                  type="text"
+                  value={commentForm[currentPost.id]?.name || ""}
+                  onChange={(e) => updateCommentForm(currentPost.id, "name", e.target.value)}
+                  className="w-full px-5 py-3.5 bg-slate-900 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white placeholder-gray-400 text-base"
+                  placeholder="Dein Name"
+                />
+                
+                <div className="relative">
+                  <textarea
+                    value={commentForm[currentPost.id]?.text || ""}
+                    onChange={(e) => updateCommentForm(currentPost.id, "text", e.target.value)}
+                    rows={5}
+                    className="w-full px-5 py-3.5 bg-slate-900 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-white placeholder-gray-400 text-base"
+                    placeholder="Dein Kommentar..."
+                  />
+                  
+                  {/* Emoji-Button */}
+                  <div className="absolute bottom-3 right-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowEmojiPicker((prev) => ({ ...prev, [currentPost.id]: !prev[currentPost.id] }))}
+                      className="text-2xl hover:scale-110 transition-transform bg-slate-800 rounded-lg px-2.5 py-1.5 border border-slate-600"
+                      title="Emoji hinzufügen"
+                    >
+                      😊
+                    </button>
+                  </div>
+                  
+                  {/* Emoji-Picker */}
+                  {showEmojiPicker[currentPost.id] && (
+                    <div className="absolute bottom-16 right-0 bg-slate-800 border border-slate-600 rounded-lg p-4 shadow-2xl z-10 max-w-xs">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-white text-sm font-semibold">Emoji auswählen</span>
+                        <button
+                          type="button"
+                          onClick={() => setShowEmojiPicker((prev) => ({ ...prev, [currentPost.id]: false }))}
+                          className="text-gray-400 hover:text-white"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-8 gap-1 max-h-48 overflow-y-auto">
+                        {EMOJIS.map((emoji, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={() => addEmoji(currentPost.id, emoji)}
+                            className="text-2xl hover:bg-slate-700 rounded p-1.5 transition"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                <button
+                  type="button"
+                  onClick={(e) => handleCommentSubmit(currentPost.id, e)}
+                  disabled={submitting === currentPost.id}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-lg font-semibold transition text-base"
+                >
+                  {submitting === currentPost.id ? "Wird gesendet..." : "Kommentar absenden"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </main>
+
+        {/* Footer */}
+        <footer className="border-t border-slate-700 mt-20">
+          <div className="max-w-4xl mx-auto px-6 py-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-gray-400 text-sm">
+                © 2024 Cardano Research Journal. Alle Rechte vorbehalten.
+              </p>
+              <div className="flex items-center gap-6">
+                <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
+                  Admin
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+                  Impressum
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+                  Datenschutz
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
+  // ÜBERSICHTS-SEITE (Artikel-Grid)
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
@@ -197,268 +487,14 @@ export default function BlogPage() {
         </div>
       </header>
 
-      {/* Detail View - ALLE TEXTE JETZT WEIß */}
-      {currentPost && (
-        <div className="fixed inset-0 bg-black/96 z-50 overflow-y-auto">
-          <div className="max-w-4xl mx-auto px-6 py-12">
-            <button
-              onClick={() => setSelectedPost(null)}
-              className="mb-8 flex items-center gap-2 text-gray-200 hover:text-white transition bg-slate-800 px-4 py-2 rounded-lg border border-slate-600"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Zurück
-            </button>
-
-            <article className="bg-slate-800 rounded-2xl border border-slate-600 overflow-hidden">
-              <div className="p-8 md:p-12">
-                <div className="mb-8">
-                  <span className="text-blue-400 text-sm font-semibold uppercase tracking-wide">Cardano Artikel</span>
-                  <h1 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-4 leading-tight">
-                    {currentPost.title}
-                  </h1>
-                  <div className="flex items-center gap-4 text-gray-200 text-sm">
-                    <span>{formatDate(currentPost.created_at)}</span>
-                    <span>•</span>
-                    <span>{getReadingTime(currentPost.content)} Min. Lesezeit</span>
-                  </div>
-                </div>
-
-                {/* ARTIKELINHALT - KOMPLETT WEIßE SCHRIFT */}
-                <div 
-                  className="article-content"
-                  dangerouslySetInnerHTML={{ __html: currentPost.content }}
-                />
-                
-                <style jsx>{`
-                  .article-content {
-                    color: white !important;
-                    font-size: 1.125rem;
-                    line-height: 1.75;
-                  }
-                  
-                  .article-content * {
-                    color: white !important;
-                  }
-                  
-                  .article-content h1,
-                  .article-content h2,
-                  .article-content h3,
-                  .article-content h4,
-                  .article-content h5,
-                  .article-content h6 {
-                    color: white !important;
-                    font-weight: bold;
-                    margin-top: 2rem;
-                    margin-bottom: 1rem;
-                  }
-                  
-                  .article-content h1 { font-size: 2.25rem; }
-                  .article-content h2 { font-size: 1.875rem; }
-                  .article-content h3 { font-size: 1.5rem; }
-                  .article-content h4 { font-size: 1.25rem; }
-                  
-                  .article-content p {
-                    color: white !important;
-                    margin-bottom: 1.5rem;
-                    line-height: 1.8;
-                  }
-                  
-                  .article-content a {
-                    color: #60a5fa !important;
-                    text-decoration: underline;
-                  }
-                  
-                  .article-content a:hover {
-                    color: #93c5fd !important;
-                  }
-                  
-                  .article-content strong,
-                  .article-content b {
-                    color: white !important;
-                    font-weight: bold;
-                  }
-                  
-                  .article-content ul,
-                  .article-content ol {
-                    color: white !important;
-                    margin-left: 1.5rem;
-                    margin-bottom: 1.5rem;
-                  }
-                  
-                  .article-content li {
-                    color: white !important;
-                    margin-bottom: 0.5rem;
-                  }
-                  
-                  .article-content blockquote {
-                    color: white !important;
-                    border-left: 4px solid #3b82f6;
-                    padding-left: 1rem;
-                    margin: 1.5rem 0;
-                    font-style: italic;
-                  }
-                  
-                  .article-content code {
-                    color: white !important;
-                    background-color: rgba(51, 65, 85, 0.5);
-                    padding: 0.2rem 0.4rem;
-                    border-radius: 0.25rem;
-                    font-size: 0.875em;
-                  }
-                  
-                  .article-content pre {
-                    background-color: rgba(51, 65, 85, 0.5);
-                    padding: 1rem;
-                    border-radius: 0.5rem;
-                    overflow-x: auto;
-                    margin-bottom: 1.5rem;
-                  }
-                  
-                  .article-content pre code {
-                    background-color: transparent;
-                    padding: 0;
-                  }
-                  
-                  .article-content table {
-                    color: white !important;
-                    border-collapse: collapse;
-                    width: 100%;
-                    margin-bottom: 1.5rem;
-                  }
-                  
-                  .article-content th,
-                  .article-content td {
-                    color: white !important;
-                    border: 1px solid #475569;
-                    padding: 0.75rem;
-                    text-align: left;
-                  }
-                  
-                  .article-content th {
-                    background-color: rgba(51, 65, 85, 0.5);
-                    font-weight: bold;
-                  }
-                  
-                  .article-content img {
-                    max-width: 100%;
-                    height: auto;
-                    border-radius: 0.5rem;
-                    margin: 1.5rem 0;
-                  }
-                `}</style>
-              </div>
-
-              {/* Comments Section */}
-              <div className="border-t border-slate-600 p-8 md:p-12 bg-slate-900/50">
-                <h3 className="text-2xl font-bold text-white mb-8">
-                  Diskussion ({comments[currentPost.id]?.length || 0})
-                </h3>
-
-                {comments[currentPost.id] && comments[currentPost.id].length > 0 && (
-                  <div className="space-y-4 mb-8">
-                    {comments[currentPost.id].map((comment) => (
-                      <div key={comment.id} className="bg-slate-800 rounded-xl p-6 border border-slate-600">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                            {comment.author_name.charAt(0).toUpperCase()}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-white">{comment.author_name}</p>
-                            <p className="text-xs text-gray-300">{formatDate(comment.created_at)}</p>
-                          </div>
-                        </div>
-                        <p className="text-white leading-relaxed ml-13">{comment.comment_text}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                <div className="bg-slate-800 rounded-xl p-6 border border-slate-600">
-                  <h4 className="font-bold text-white mb-4 text-lg">Kommentar verfassen</h4>
-                  <div className="space-y-4">
-                    <input
-                      type="text"
-                      value={commentForm[currentPost.id]?.name || ""}
-                      onChange={(e) => updateCommentForm(currentPost.id, "name", e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white placeholder-gray-400"
-                      placeholder="Dein Name"
-                    />
-                    
-                    {/* Textarea mit Emoji-Button */}
-                    <div className="relative">
-                      <textarea
-                        value={commentForm[currentPost.id]?.text || ""}
-                        onChange={(e) => updateCommentForm(currentPost.id, "text", e.target.value)}
-                        rows={4}
-                        className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none text-white placeholder-gray-400"
-                        placeholder="Dein Kommentar..."
-                      />
-                      
-                      {/* Emoji-Button */}
-                      <div className="absolute bottom-3 right-3">
-                        <button
-                          type="button"
-                          onClick={() => setShowEmojiPicker((prev) => ({ ...prev, [currentPost.id]: !prev[currentPost.id] }))}
-                          className="text-2xl hover:scale-110 transition-transform bg-slate-800 rounded-lg px-2 py-1 border border-slate-600"
-                          title="Emoji hinzufügen"
-                        >
-                          😊
-                        </button>
-                      </div>
-                      
-                      {/* Emoji-Picker */}
-                      {showEmojiPicker[currentPost.id] && (
-                        <div className="absolute bottom-14 right-0 bg-slate-800 border border-slate-600 rounded-lg p-3 shadow-xl z-10 max-w-xs">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-white text-sm font-semibold">Emoji auswählen</span>
-                            <button
-                              onClick={() => setShowEmojiPicker((prev) => ({ ...prev, [currentPost.id]: false }))}
-                              className="text-gray-400 hover:text-white"
-                            >
-                              ✕
-                            </button>
-                          </div>
-                          <div className="grid grid-cols-8 gap-1 max-h-48 overflow-y-auto">
-                            {EMOJIS.map((emoji, index) => (
-                              <button
-                                key={index}
-                                type="button"
-                                onClick={() => addEmoji(currentPost.id, emoji)}
-                                className="text-2xl hover:bg-slate-700 rounded p-1 transition"
-                              >
-                                {emoji}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <button
-                      onClick={(e) => handleCommentSubmit(currentPost.id, e)}
-                      disabled={submitting === currentPost.id}
-                      className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold transition"
-                    >
-                      {submitting === currentPost.id ? "Wird gesendet..." : "Absenden"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      )}
-
       {/* Main Content - Card Grid */}
       <main className="max-w-7xl mx-auto px-6 py-16">
         <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Long-Term Research & Network Analysis
+            Langfristige Forschungs- und Netzwerkanalyse
           </h2>
           <p className="text-gray-200 text-lg">
-            Unabhängige Analyses zu On-Chain-Daten, Tokenomics und Risiko.
+            Unabhängige Analysen zu On-Chain-Daten, Tokenomics und Risiko.
           </p>
         </div>
 
@@ -477,7 +513,7 @@ export default function BlogPage() {
                 <div className="p-7">
                   <div className="mb-4">
                     <span className="text-blue-400 text-xs font-semibold uppercase tracking-wider">
-                      Research
+                      Forschung
                     </span>
                     <div className="flex items-center gap-2 mt-2 text-gray-300 text-xs">
                       <span>{getReadingTime(post.content)} Minuten Lesezeit</span>
