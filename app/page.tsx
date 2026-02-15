@@ -565,7 +565,7 @@ export default function BlogPage() {
 
       {/* Main Content - Card Grid */}
       <main className="max-w-7xl mx-auto px-6 py-16">
-        <div className="mb-12">
+        <div className="mb-12 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Cardano Deep Dives: Daten, Analysen, Insights
           </h2>
