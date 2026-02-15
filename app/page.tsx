@@ -42,8 +42,8 @@ export default function BlogPage() {
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState<{ [key: string]: boolean }>({});
   const [prices, setPrices] = useState<{
-    ada: { usd: number; change: number } | null;
-    night: { usd: number; change: number } | null;
+    ada: { eur: number; change: number } | null;
+    night: { eur: number; change: number } | null;
   }>({ ada: null, night: null });
 
   useEffect(() => {
@@ -56,9 +56,9 @@ export default function BlogPage() {
   async function fetchPrices() {
     try {
       // ADA von Kraken
-      const adaRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=ADAUSD");
+      const adaRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=ADAEUR");
       const adaData = await adaRes.json();
-      const adaTicker = adaData.result?.ADAUSD;
+      const adaTicker = adaData.result?.ADAEUR;
       const adaPrice = adaTicker ? parseFloat(adaTicker.c[0]) : null;
       const adaOpen = adaTicker ? parseFloat(adaTicker.o) : null;
       const adaChange = adaPrice && adaOpen ? ((adaPrice - adaOpen) / adaOpen) * 100 : 0;
@@ -67,9 +67,9 @@ export default function BlogPage() {
       let nightPrice: number | null = null;
       let nightChange = 0;
       try {
-        const nightRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=NIGHTUSD");
+        const nightRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=NIGHTEUR");
         const nightData = await nightRes.json();
-        const nightTicker = nightData.result?.NIGHTUSD;
+        const nightTicker = nightData.result?.NIGHTEUR;
         if (nightTicker) {
           nightPrice = parseFloat(nightTicker.c[0]);
           const nightOpen = parseFloat(nightTicker.o);
@@ -80,8 +80,8 @@ export default function BlogPage() {
       }
 
       setPrices({
-        ada: adaPrice ? { usd: adaPrice, change: adaChange } : null,
-        night: nightPrice ? { usd: nightPrice, change: nightChange } : null,
+        ada: adaPrice ? { eur: adaPrice, change: adaChange } : null,
+        night: nightPrice ? { eur: nightPrice, change: nightChange } : null,
       });
     } catch (e) {
       console.error("Preisfehler:", e);
@@ -493,10 +493,10 @@ export default function BlogPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
       <header className="border-b border-slate-600 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10">
+              <div className="w-10 h-10 shrink-0">
                 <svg viewBox="0 0 375 346.5" className="w-full h-full">
                   <g fill="#3B82F6">
                     <circle cx="113.5" cy="172.1" r="10.7"/>
@@ -527,12 +527,12 @@ export default function BlogPage() {
             </div>
 
             {/* Live Preisticker */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-600 rounded-lg px-3 py-1.5">
                 <span className="text-blue-400 font-bold text-xs uppercase tracking-wide">ADA</span>
                 {prices.ada ? (
                   <>
-                    <span className="text-white text-sm font-semibold">${prices.ada.usd.toFixed(4)}</span>
+                    <span className="text-white text-sm font-semibold">€{prices.ada.eur.toFixed(4)}</span>
                     <span className={`text-xs font-medium ${prices.ada.change >= 0 ? "text-green-400" : "text-red-400"}`}>
                       {prices.ada.change >= 0 ? "▲" : "▼"} {Math.abs(prices.ada.change).toFixed(2)}%
                     </span>
@@ -546,7 +546,7 @@ export default function BlogPage() {
                 <span className="text-purple-400 font-bold text-xs uppercase tracking-wide">NIGHT</span>
                 {prices.night ? (
                   <>
-                    <span className="text-white text-sm font-semibold">${prices.night.usd.toFixed(4)}</span>
+                    <span className="text-white text-sm font-semibold">€{prices.night.eur.toFixed(4)}</span>
                     <span className={`text-xs font-medium ${prices.night.change >= 0 ? "text-green-400" : "text-red-400"}`}>
                       {prices.night.change >= 0 ? "▲" : "▼"} {Math.abs(prices.night.change).toFixed(2)}%
                     </span>
@@ -556,7 +556,7 @@ export default function BlogPage() {
                 )}
               </div>
 
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" title="Live" />
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" title="Live" />
             </div>
 
           </div>
