@@ -6,11 +6,9 @@ export const metadata = {
 export default function ImpressumPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-[#e8e6e0]">
-      {/* Subtle top accent */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-[#3d6aff] to-transparent" />
 
       <div className="mx-auto max-w-2xl px-6 py-20">
-        {/* Back link */}
         <a
           href="/"
           className="inline-flex items-center gap-2 text-sm text-[#6b7aff] hover:text-[#9aaafe] transition-colors mb-12 group"
@@ -19,7 +17,6 @@ export default function ImpressumPage() {
           Zurück zur Startseite
         </a>
 
-        {/* Heading */}
         <div className="mb-12">
           <p className="text-xs uppercase tracking-[0.25em] text-[#6b7aff] mb-3 font-medium">
             Rechtliches
@@ -33,7 +30,6 @@ export default function ImpressumPage() {
           <div className="mt-4 h-px w-16 bg-[#3d6aff]" />
         </div>
 
-        {/* Content */}
         <div
           className="space-y-10 text-[#c4c0b8] leading-relaxed"
           style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
@@ -74,12 +70,6 @@ export default function ImpressumPage() {
                   kontakt@example.com
                 </a>
               </li>
-              {/* Optional: Telefon – auskommentiert lassen wenn nicht gewünscht
-              <li>
-                <span className="text-[#8a8680]">Telefon: </span>
-                +49 (0) 123 456789
-              </li>
-              */}
             </ul>
           </section>
 
@@ -101,7 +91,6 @@ export default function ImpressumPage() {
             <h2 className="text-lg font-semibold text-[#e8e6e0] mb-3 tracking-wide">
               Haftungsausschluss
             </h2>
-
             <div className="space-y-6">
               <div>
                 <h3 className="text-base font-medium text-[#d6d2ca] mb-2">
@@ -116,15 +105,7 @@ export default function ImpressumPage() {
                   Umständen zu forschen, die auf eine rechtswidrige Tätigkeit
                   hinweisen.
                 </p>
-                <p className="text-sm leading-7 mt-3">
-                  Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
-                  Informationen nach den allgemeinen Gesetzen bleiben hiervon
-                  unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem
-                  Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung
-                  möglich.
-                </p>
               </div>
-
               <div>
                 <h3 className="text-base font-medium text-[#d6d2ca] mb-2">
                   Haftung für Links
@@ -137,7 +118,6 @@ export default function ImpressumPage() {
                   Anbieter oder Betreiber der Seiten verantwortlich.
                 </p>
               </div>
-
               <div>
                 <h3 className="text-base font-medium text-[#d6d2ca] mb-2">
                   Urheberrecht
@@ -154,7 +134,6 @@ export default function ImpressumPage() {
             </div>
           </section>
 
-          {/* Streitschlichtung */}
           <section>
             <h2 className="text-lg font-semibold text-[#e8e6e0] mb-3 tracking-wide">
               Streitschlichtung
@@ -170,14 +149,13 @@ export default function ImpressumPage() {
               >
                 https://ec.europa.eu/consumers/odr/
               </a>
-              . Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind
-              nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor
-              einer Verbraucherschlichtungsstelle teilzunehmen.
+              . Wir sind nicht bereit oder verpflichtet, an
+              Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
             </p>
           </section>
         </div>
 
-        {/* Footer note */}
         <p className="mt-16 text-xs text-[#5a5650]">
           Zuletzt aktualisiert: {new Date().getFullYear()}
         </p>
