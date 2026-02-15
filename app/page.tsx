@@ -41,10 +41,24 @@ export default function BlogPage() {
   const [commentForm, setCommentForm] = useState<{ [key: string]: { name: string; text: string } }>({});
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState<{ [key: string]: boolean }>({});
+  const [readProgress, setReadProgress] = useState(0);
+
+  useEffect(() => {
+    function handleScroll() {
+      const el = document.documentElement;
+      const scrolled = el.scrollTop;
+      const total = el.scrollHeight - el.clientHeight;
+      setReadProgress(total > 0 ? Math.min(100, (scrolled / total) * 100) : 0);
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [selectedPost]);
   const [prices, setPrices] = useState<{
     ada: { eur: number; change: number } | null;
     night: { eur: number; change: number } | null;
   }>({ ada: null, night: null });
+
+  const [sparkline, setSparkline] = useState<number[]>([]);
 
   const [networkStats, setNetworkStats] = useState<{
     epoch: number | null;
@@ -57,13 +71,30 @@ export default function BlogPage() {
     loadPosts();
     fetchPrices();
     fetchNetworkStats();
+    fetchSparkline();
     const interval = setInterval(fetchPrices, 30000);
     const statsInterval = setInterval(fetchNetworkStats, 60000);
+    const sparklineInterval = setInterval(fetchSparkline, 300000);
     return () => {
       clearInterval(interval);
       clearInterval(statsInterval);
+      clearInterval(sparklineInterval);
     };
   }, []);
+
+  async function fetchSparkline() {
+    try {
+      // Kraken OHLC: interval=1440 = daily candles, last 7 days
+      const res = await fetch("https://api.kraken.com/0/public/OHLC?pair=ADAEUR&interval=1440");
+      const data = await res.json();
+      const ohlc = data.result?.ADAEUR ?? data.result?.XADAZEUR ?? [];
+      // Each entry: [time, open, high, low, close, ...], take last 14 closes
+      const closes: number[] = ohlc.slice(-14).map((c: string[]) => parseFloat(c[4]));
+      setSparkline(closes);
+    } catch (e) {
+      console.error("Sparkline Fehler:", e);
+    }
+  }
 
   async function fetchNetworkStats() {
     const BF_KEY = "mainnetMuGkLI2uRrx4ssPx3nxgxWlCHvdkQUK3";
@@ -214,7 +245,16 @@ export default function BlogPage() {
   }
 
   function getTextPreview(html: string, maxLength: number = 200): string {
-    const text = html.replace(/<[^>]*>/g, '');
+    const text = html
+      .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+/g, ' ')
+      .trim();
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   }
 
@@ -243,6 +283,13 @@ export default function BlogPage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {/* Header mit Zurück-Button */}
         <header className="border-b border-slate-600 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+          {/* Lesefortschritt-Balken */}
+          <div className="h-0.5 bg-slate-800 w-full">
+            <div
+              className="h-full bg-blue-500 transition-all duration-150"
+              style={{ width: `${readProgress}%` }}
+            />
+          </div>
           <div className="max-w-4xl mx-auto px-6 py-4">
             <button
               onClick={() => setSelectedPost(null)}
@@ -506,7 +553,7 @@ export default function BlogPage() {
           <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400 text-sm">
-                © 2024 Cardano Research Journal. Alle Rechte vorbehalten.
+                © 2026 Cardano Research Journal. Alle Rechte vorbehalten.
               </p>
               <div className="flex items-center gap-6">
                 <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
@@ -574,6 +621,22 @@ export default function BlogPage() {
                     <span className={`text-xs font-medium ${prices.ada.change >= 0 ? "text-green-400" : "text-red-400"}`}>
                       {prices.ada.change >= 0 ? "▲" : "▼"} {Math.abs(prices.ada.change).toFixed(2)}%
                     </span>
+                    {sparkline.length > 1 && (() => {
+                      const min = Math.min(...sparkline);
+                      const max = Math.max(...sparkline);
+                      const w = 48; const h = 20;
+                      const pts = sparkline.map((v, i) => {
+                        const x = (i / (sparkline.length - 1)) * w;
+                        const y = h - ((v - min) / (max - min || 1)) * h;
+                        return `${x},${y}`;
+                      }).join(" ");
+                      const color = sparkline[sparkline.length-1] >= sparkline[0] ? "#4ade80" : "#f87171";
+                      return (
+                        <svg width={w} height={h} className="opacity-80">
+                          <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+                        </svg>
+                      );
+                    })()}
                   </>
                 ) : (
                   <span className="text-gray-500 text-xs">Lädt...</span>
@@ -689,7 +752,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2024 Cardano Research Journal. Alle Rechte vorbehalten.
+              © 2026 Cardano Research Journal. Alle Rechte vorbehalten.
             </p>
             <div className="flex items-center gap-6">
               <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
