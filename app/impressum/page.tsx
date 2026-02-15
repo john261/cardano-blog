@@ -41,15 +41,15 @@ export default function ImpressumPage() {
             <address className="not-italic space-y-1">
               <p className="font-medium text-[#e8e6e0]">
                 {/* TODO: Ihren vollständigen Namen eintragen */}
-                Vorname Nachname
+                Stephan Gilger
               </p>
               <p>
                 {/* TODO: Straße und Hausnummer */}
-                Musterstraße 1
+                Stöberlstr. 93
               </p>
               <p>
                 {/* TODO: PLZ und Stadt */}
-                12345 Musterstadt
+                80686 München
               </p>
               <p>Deutschland</p>
             </address>
@@ -67,7 +67,7 @@ export default function ImpressumPage() {
                   href="mailto:kontakt@example.com"
                   className="text-[#6b7aff] hover:text-[#9aaafe] transition-colors"
                 >
-                  kontakt@example.com
+                  stephangilger@web.de
                 </a>
               </li>
             </ul>
@@ -80,10 +80,10 @@ export default function ImpressumPage() {
             <address className="not-italic space-y-1">
               <p className="font-medium text-[#e8e6e0]">
                 {/* TODO: Name der verantwortlichen Person */}
-                Vorname Nachname
+                Stephan Gilger
               </p>
-              <p>Musterstraße 1</p>
-              <p>12345 Musterstadt</p>
+              <p>Stöberlstr, 93</p>
+              <p>80686 München</p>
             </address>
           </section>
 

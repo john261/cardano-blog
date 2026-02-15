@@ -60,17 +60,17 @@ export default function DatenschutzPage() {
             <address className="not-italic space-y-1 text-sm bg-white/5 rounded-lg p-4 border border-white/10">
               <p className="font-medium text-[#e8e6e0]">
                 {/* TODO: Ihren vollständigen Namen eintragen */}
-                Vorname Nachname
+                Stephan Gilger
               </p>
-              <p>Musterstraße 1</p>
-              <p>12345 Musterstadt</p>
+              <p>Stöberlstr. 93</p>
+              <p>80686 München</p>
               <p className="pt-2">
                 <span className="text-[#8a8680]">E-Mail: </span>
                 <a
                   href="mailto:kontakt@example.com"
                   className="text-[#6b7aff] hover:text-[#9aaafe] transition-colors"
                 >
-                  kontakt@example.com
+                  stephangilger@web.de
                 </a>
               </p>
             </address>
