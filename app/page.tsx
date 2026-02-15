@@ -77,11 +77,11 @@ export default function BlogPage() {
       const blockData = await blockRes.json();
 
       const activeStakeAda = epochData.active_stake
-        ? (parseInt(epochData.active_stake) / 1_000_000_000_000).toFixed(1) + "T ₳"
+        ? (parseInt(epochData.active_stake) / 1_000_000 / 1_000_000_000).toFixed(1) + "B ₳"
         : null;
 
       setNetworkStats({
-        epoch: epochData.id ?? null,
+        epoch: epochData.epoch ?? epochData.id ?? null,
         txCount: epochData.tx_count ? parseInt(epochData.tx_count).toLocaleString("de-DE") : null,
         activeStake: activeStakeAda,
         blockHeight: blockData.height ? parseInt(blockData.height).toLocaleString("de-DE") : null,
