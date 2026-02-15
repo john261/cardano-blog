@@ -41,10 +41,52 @@ export default function BlogPage() {
   const [commentForm, setCommentForm] = useState<{ [key: string]: { name: string; text: string } }>({});
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState<{ [key: string]: boolean }>({});
+  const [prices, setPrices] = useState<{
+    ada: { usd: number; change: number } | null;
+    night: { usd: number; change: number } | null;
+  }>({ ada: null, night: null });
 
   useEffect(() => {
     loadPosts();
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 30000);
+    return () => clearInterval(interval);
   }, []);
+
+  async function fetchPrices() {
+    try {
+      // ADA von Kraken
+      const adaRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=ADAUSD");
+      const adaData = await adaRes.json();
+      const adaTicker = adaData.result?.ADAUSD;
+      const adaPrice = adaTicker ? parseFloat(adaTicker.c[0]) : null;
+      const adaOpen = adaTicker ? parseFloat(adaTicker.o) : null;
+      const adaChange = adaPrice && adaOpen ? ((adaPrice - adaOpen) / adaOpen) * 100 : 0;
+
+      // NIGHT von Kraken
+      let nightPrice: number | null = null;
+      let nightChange = 0;
+      try {
+        const nightRes = await fetch("https://api.kraken.com/0/public/Ticker?pair=NIGHTUSD");
+        const nightData = await nightRes.json();
+        const nightTicker = nightData.result?.NIGHTUSD;
+        if (nightTicker) {
+          nightPrice = parseFloat(nightTicker.c[0]);
+          const nightOpen = parseFloat(nightTicker.o);
+          nightChange = nightPrice && nightOpen ? ((nightPrice - nightOpen) / nightOpen) * 100 : 0;
+        }
+      } catch {
+        console.warn("NIGHT nicht verfügbar auf Kraken");
+      }
+
+      setPrices({
+        ada: adaPrice ? { usd: adaPrice, change: adaChange } : null,
+        night: nightPrice ? { usd: nightPrice, change: nightChange } : null,
+      });
+    } catch (e) {
+      console.error("Preisfehler:", e);
+    }
+  }
 
   async function loadPosts() {
     setLoading(true);
@@ -432,10 +474,10 @@ export default function BlogPage() {
                 <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
                   Admin
                 </a>
-                <a href="/impressum" className="text-gray-400 hover:text-white text-sm transition">
+                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
                   Impressum
                 </a>
-                <a href="/datenschutz" className="text-gray-400 hover:text-white text-sm transition">
+                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
                   Datenschutz
                 </a>
               </div>
@@ -483,6 +525,40 @@ export default function BlogPage() {
                 <h1 className="text-xl font-bold text-white">CARDANO <span className="font-light">Research Journal</span></h1>
               </div>
             </div>
+
+            {/* Live Preisticker */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-600 rounded-lg px-3 py-1.5">
+                <span className="text-blue-400 font-bold text-xs uppercase tracking-wide">ADA</span>
+                {prices.ada ? (
+                  <>
+                    <span className="text-white text-sm font-semibold">${prices.ada.usd.toFixed(4)}</span>
+                    <span className={`text-xs font-medium ${prices.ada.change >= 0 ? "text-green-400" : "text-red-400"}`}>
+                      {prices.ada.change >= 0 ? "▲" : "▼"} {Math.abs(prices.ada.change).toFixed(2)}%
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-gray-500 text-xs">Lädt...</span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2 bg-slate-800/80 border border-slate-600 rounded-lg px-3 py-1.5">
+                <span className="text-purple-400 font-bold text-xs uppercase tracking-wide">NIGHT</span>
+                {prices.night ? (
+                  <>
+                    <span className="text-white text-sm font-semibold">${prices.night.usd.toFixed(4)}</span>
+                    <span className={`text-xs font-medium ${prices.night.change >= 0 ? "text-green-400" : "text-red-400"}`}>
+                      {prices.night.change >= 0 ? "▲" : "▼"} {Math.abs(prices.night.change).toFixed(2)}%
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-gray-500 text-xs">Lädt...</span>
+                )}
+              </div>
+
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" title="Live" />
+            </div>
+
           </div>
         </div>
       </header>
@@ -557,10 +633,10 @@ export default function BlogPage() {
               <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
                 Admin
               </a>
-              <a href="/impressum" className="text-gray-400 hover:text-white text-sm transition">
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition">
                 Impressum
               </a>
-              <a href="/datenschutz" className="text-gray-400 hover:text-white text-sm transition">
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition">
                 Datenschutz
               </a>
             </div>
