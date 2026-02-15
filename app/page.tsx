@@ -474,10 +474,10 @@ export default function BlogPage() {
                 <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
                   Admin
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+                <a href="/impressum" className="text-gray-400 hover:text-white text-sm transition">
                   Impressum
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+                <a href="/datenschutz" className="text-gray-400 hover:text-white text-sm transition">
                   Datenschutz
                 </a>
               </div>
@@ -633,10 +633,10 @@ export default function BlogPage() {
               <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
                 Admin
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+              <a href="/impressum" className="text-gray-400 hover:text-white text-sm transition">
                 Impressum
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition">
+              <a href="/datenschutz" className="text-gray-400 hover:text-white text-sm transition">
                 Datenschutz
               </a>
             </div>
