@@ -46,12 +46,50 @@ export default function BlogPage() {
     night: { eur: number; change: number } | null;
   }>({ ada: null, night: null });
 
+  const [networkStats, setNetworkStats] = useState<{
+    epoch: number | null;
+    txCount: string | null;
+    activeStake: string | null;
+    blockHeight: string | null;
+  }>({ epoch: null, txCount: null, activeStake: null, blockHeight: null });
+
   useEffect(() => {
     loadPosts();
     fetchPrices();
+    fetchNetworkStats();
     const interval = setInterval(fetchPrices, 30000);
-    return () => clearInterval(interval);
+    const statsInterval = setInterval(fetchNetworkStats, 60000);
+    return () => {
+      clearInterval(interval);
+      clearInterval(statsInterval);
+    };
   }, []);
+
+  async function fetchNetworkStats() {
+    const BF_KEY = "mainnetMuGkLI2uRrx4ssPx3nxgxWlCHvdkQUK3";
+    const headers = { project_id: BF_KEY };
+    try {
+      const [epochRes, blockRes] = await Promise.all([
+        fetch("https://cardano-mainnet.blockfrost.io/api/v0/epochs/latest", { headers }),
+        fetch("https://cardano-mainnet.blockfrost.io/api/v0/blocks/latest", { headers }),
+      ]);
+      const epochData = await epochRes.json();
+      const blockData = await blockRes.json();
+
+      const activeStakeAda = epochData.active_stake
+        ? (parseInt(epochData.active_stake) / 1_000_000_000_000).toFixed(1) + "T ₳"
+        : null;
+
+      setNetworkStats({
+        epoch: epochData.id ?? null,
+        txCount: epochData.tx_count ? parseInt(epochData.tx_count).toLocaleString("de-DE") : null,
+        activeStake: activeStakeAda,
+        blockHeight: blockData.height ? parseInt(blockData.height).toLocaleString("de-DE") : null,
+      });
+    } catch (e) {
+      console.error("Netzwerk-Stats Fehler:", e);
+    }
+  }
 
   async function fetchPrices() {
     try {
@@ -468,7 +506,7 @@ export default function BlogPage() {
           <div className="max-w-4xl mx-auto px-6 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400 text-sm">
-                © 2026 Cardano Research Journal. Alle Rechte vorbehalten.
+                © 2024 Cardano Research Journal. Alle Rechte vorbehalten.
               </p>
               <div className="flex items-center gap-6">
                 <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
@@ -563,6 +601,30 @@ export default function BlogPage() {
         </div>
       </header>
 
+      {/* Netzwerk Stats Leiste */}
+      <div className="border-b border-slate-700/50 bg-slate-900/60">
+        <div className="max-w-7xl mx-auto px-6 py-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { label: "Epoche", value: networkStats.epoch ? `#${networkStats.epoch}` : null, icon: "⛓" },
+              { label: "TXs diese Epoche", value: networkStats.txCount, icon: "📊" },
+              { label: "Active Stake", value: networkStats.activeStake, icon: "🔒" },
+              { label: "Blockhöhe", value: networkStats.blockHeight, icon: "📦" },
+            ].map(({ label, value, icon }) => (
+              <div key={label} className="flex items-center gap-2 bg-slate-800/40 rounded-lg px-3 py-2 border border-slate-700/50">
+                <span className="text-base">{icon}</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-500">{label}</p>
+                  <p className="text-sm font-semibold text-white">
+                    {value ?? <span className="text-gray-600 text-xs">Lädt...</span>}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Main Content - Card Grid */}
       <main className="max-w-7xl mx-auto px-6 py-16">
         <div className="mb-12 text-center">
@@ -627,7 +689,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2026 Cardano Research Journal. Alle Rechte vorbehalten.
+              © 2024 Cardano Research Journal. Alle Rechte vorbehalten.
             </p>
             <div className="flex items-center gap-6">
               <a href="/admin/login" className="text-gray-400 hover:text-white text-sm transition">
