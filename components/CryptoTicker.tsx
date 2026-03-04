@@ -80,8 +80,8 @@ function TickerBar({
   return (
     <div
       style={{
-        background: "#0f3d6e",
-        borderBottom: "1px solid rgba(255,255,255,0.1)",
+        background: "#07070f",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
         overflow: "hidden",
         position: "relative",
         height: "36px",
@@ -97,7 +97,7 @@ function TickerBar({
           top: 0,
           bottom: 0,
           width: "70px",
-          background: "linear-gradient(90deg, #0f3d6e 60%, transparent)",
+          background: "linear-gradient(90deg, #07070f 60%, transparent)",
           zIndex: 2,
           display: "flex",
           alignItems: "center",
@@ -140,12 +140,12 @@ function TickerBar({
                 alignItems: "center",
                 gap: "6px",
                 padding: "0 24px",
-                borderRight: "1px solid rgba(255,255,255,0.08)",
+                borderRight: "1px solid rgba(255,255,255,0.05)",
                 fontSize: "12px",
                 color: "white",
               }}
             >
-              <span style={{ fontWeight: 700, textTransform: "uppercase", color: "#93c5fd" }}>
+              <span style={{ fontWeight: 700, textTransform: "uppercase", color: "#a78bfa" }}>
                 {coin.symbol.toUpperCase()}
               </span>
               <span style={{ fontWeight: 600 }}>{formatPrice(coin.current_price)}</span>
@@ -165,7 +165,7 @@ function TickerBar({
           top: 0,
           bottom: 0,
           width: "40px",
-          background: "linear-gradient(270deg, #0f3d6e 40%, transparent)",
+          background: "linear-gradient(270deg, #07070f 40%, transparent)",
           zIndex: 2,
         }}
       />
