@@ -242,7 +242,7 @@ export default function BlogPage() {
     return (
       <div style={{ background: "#04040a" }} className="min-h-screen flex items-center justify-center">
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&family=Manrope:wght@300;400;500;600&display=swap');
           .loader-beam {
             width: 2px; height: 80px;
             background: linear-gradient(to bottom, transparent, #7c6aff, #a78bfa, #7c6aff, transparent);
@@ -254,7 +254,7 @@ export default function BlogPage() {
         `}</style>
         <div className="flex flex-col items-center gap-5">
           <div className="loader-beam" />
-          <p style={{ fontFamily: "'Syne', sans-serif", color: "rgba(255,255,255,0.4)", fontSize: "0.85rem", letterSpacing: "0.15em" }}>
+          <p style={{ fontFamily: "'Epilogue', sans-serif", color: "rgba(255,255,255,0.4)", fontSize: "0.85rem", letterSpacing: "0.15em" }}>
             LÄDT
           </p>
         </div>
@@ -267,11 +267,11 @@ export default function BlogPage() {
   // ─── ARTIKEL-VOLLBILD ──────────────────────────────────────────────────────
   if (currentPost) {
     return (
-      <div style={{ background: "#04040a", fontFamily: "'DM Sans', sans-serif" }} className="min-h-screen">
+      <div style={{ background: "#04040a", fontFamily: "'Manrope', sans-serif" }} className="min-h-screen">
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
-          .article-content { color: rgba(255,255,255,0.82); font-size: 1.1rem; line-height: 1.85; font-family: 'DM Sans', sans-serif; }
-          .article-content h1,.article-content h2,.article-content h3,.article-content h4 { color: #fff; font-family: 'Syne', sans-serif; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; }
+          @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+          .article-content { color: rgba(255,255,255,0.82); font-size: 1.1rem; line-height: 1.85; font-family: 'Manrope', sans-serif; }
+          .article-content h1,.article-content h2,.article-content h3,.article-content h4 { color: #fff; font-family: 'Epilogue', sans-serif; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; }
           .article-content h1 { font-size: 2.2rem; }
           .article-content h2 { font-size: 1.75rem; }
           .article-content h3 { font-size: 1.4rem; }
@@ -292,10 +292,10 @@ export default function BlogPage() {
           .progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, #7c6aff, #a78bfa, #e879f9); transition: width 0.15s; z-index: 100; }
           .back-btn:hover { background: rgba(255,255,255,0.06) !important; }
           .comment-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.5rem; }
-          .input-field { width: 100%; padding: 0.875rem 1.25rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+          .input-field { width: 100%; padding: 0.875rem 1.25rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: 'Manrope', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
           .input-field:focus { border-color: rgba(124,106,255,0.5); }
           .input-field::placeholder { color: rgba(255,255,255,0.25); }
-          .submit-btn { background: linear-gradient(135deg, #7c6aff, #6d28d9); color: #fff; padding: 0.875rem 2rem; border-radius: 10px; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s; }
+          .submit-btn { background: linear-gradient(135deg, #7c6aff, #6d28d9); color: #fff; padding: 0.875rem 2rem; border-radius: 10px; font-family: 'Epilogue', sans-serif; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s; }
           .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
           .submit-btn:disabled { background: rgba(255,255,255,0.08); cursor: not-allowed; transform: none; }
         `}</style>
@@ -308,7 +308,7 @@ export default function BlogPage() {
             <button
               onClick={() => setSelectedPost(null)}
               className="back-btn flex items-center gap-2 transition-all px-3 py-2 rounded-lg"
-              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", background: "transparent", border: "none", cursor: "pointer" }}
+              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "'Manrope', sans-serif", background: "transparent", border: "none", cursor: "pointer" }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -321,10 +321,10 @@ export default function BlogPage() {
         <main className="max-w-4xl mx-auto px-6 py-16">
           <article className="mb-20">
             <div className="mb-12">
-              <span style={{ color: "#7c6aff", fontFamily: "'Syne', sans-serif", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase" }}>
+              <span style={{ color: "#7c6aff", fontFamily: "'Epilogue', sans-serif", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase" }}>
                 Cardano Research
               </span>
-              <h1 style={{ fontFamily: "'Syne', sans-serif", color: "#fff", fontWeight: 800, lineHeight: 1.15, marginTop: "1rem", marginBottom: "1.5rem" }} className="text-4xl md:text-5xl lg:text-6xl">
+              <h1 style={{ fontFamily: "'Epilogue', sans-serif", color: "#fff", fontWeight: 800, lineHeight: 1.15, marginTop: "1rem", marginBottom: "1.5rem" }} className="text-4xl md:text-5xl lg:text-6xl">
                 {currentPost.title}
               </h1>
               <div style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.875rem", display: "flex", gap: "1rem" }}>
@@ -340,7 +340,7 @@ export default function BlogPage() {
 
           {/* Kommentare */}
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: "3rem" }}>
-            <h3 style={{ fontFamily: "'Syne', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.75rem", marginBottom: "2rem" }}>
+            <h3 style={{ fontFamily: "'Epilogue', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.75rem", marginBottom: "2rem" }}>
               Diskussion <span style={{ color: "rgba(255,255,255,0.3)", fontWeight: 400, fontSize: "1.25rem" }}>({comments[currentPost.id]?.length || 0})</span>
             </h3>
 
@@ -349,7 +349,7 @@ export default function BlogPage() {
                 {comments[currentPost.id].map((comment) => (
                   <div key={comment.id} className="comment-card">
                     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
-                      <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "linear-gradient(135deg, #7c6aff, #6d28d9)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "1rem", fontFamily: "'Syne', sans-serif", flexShrink: 0 }}>
+                      <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "linear-gradient(135deg, #7c6aff, #6d28d9)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: "1rem", fontFamily: "'Epilogue', sans-serif", flexShrink: 0 }}>
                         {comment.author_name.charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -364,7 +364,7 @@ export default function BlogPage() {
             )}
 
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "2rem" }}>
-              <h4 style={{ fontFamily: "'Syne', sans-serif", color: "#fff", fontWeight: 600, marginBottom: "1.5rem" }}>Kommentar verfassen</h4>
+              <h4 style={{ fontFamily: "'Epilogue', sans-serif", color: "#fff", fontWeight: 600, marginBottom: "1.5rem" }}>Kommentar verfassen</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <input
                   type="text"
@@ -420,7 +420,7 @@ export default function BlogPage() {
         <footer style={{ borderTop: "1px solid rgba(255,255,255,0.07)", marginTop: "5rem" }}>
           <div className="max-w-4xl mx-auto px-6 py-8" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-              <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif" }}>© 2026 Cardano Research Journal</p>
+              <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.8rem", fontFamily: "'Manrope', sans-serif" }}>© 2026 Cardano Research Journal</p>
               <div style={{ display: "flex", gap: "1.5rem" }}>
                 {[["Admin", "/admin/login"], ["Impressum", "/impressum"], ["Datenschutz", "/datenschutz"]].map(([label, href]) => (
                   <a key={label} href={href} style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.8rem", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")} onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}>{label}</a>
@@ -435,9 +435,9 @@ export default function BlogPage() {
 
   // ─── ÜBERSICHTS-SEITE ──────────────────────────────────────────────────────
   return (
-    <div style={{ background: "#04040a", fontFamily: "'DM Sans', sans-serif", minHeight: "100vh" }}>
+    <div style={{ background: "#04040a", fontFamily: "'Manrope', sans-serif", minHeight: "100vh" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
 
         * { box-sizing: border-box; }
 
@@ -575,7 +575,7 @@ export default function BlogPage() {
           color: #c4b5fd;
           padding: 0.625rem 1.5rem;
           border-radius: 999px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Manrope', sans-serif;
           font-size: 0.875rem;
           text-decoration: none;
           cursor: pointer;
@@ -601,7 +601,7 @@ export default function BlogPage() {
                 </g>
               </svg>
             </div>
-            <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, color: "#fff", fontSize: "1rem", letterSpacing: "-0.01em" }}>
+            <span style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 700, color: "#fff", fontSize: "1rem", letterSpacing: "-0.01em" }}>
               CARDANO <span style={{ fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>Research Journal</span>
             </span>
           </div>
@@ -610,7 +610,7 @@ export default function BlogPage() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", flexWrap: "wrap" }}>
             {/* ADA */}
             <div className="price-badge">
-              <span style={{ color: "#7c6aff", fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em" }}>ADA</span>
+              <span style={{ color: "#7c6aff", fontFamily: "'Epilogue', sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em" }}>ADA</span>
               {prices.ada ? (
                 <>
                   <span style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 500 }}>€{prices.ada.eur.toFixed(4)}</span>
@@ -630,7 +630,7 @@ export default function BlogPage() {
 
             {/* NIGHT */}
             <div className="price-badge">
-              <span style={{ color: "#a78bfa", fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em" }}>NIGHT</span>
+              <span style={{ color: "#a78bfa", fontFamily: "'Epilogue', sans-serif", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em" }}>NIGHT</span>
               {prices.night ? (
                 <>
                   <span style={{ color: "#fff", fontSize: "0.875rem", fontWeight: 500 }}>€{prices.night.eur.toFixed(4)}</span>
@@ -683,13 +683,13 @@ export default function BlogPage() {
 
         <div className="max-w-4xl mx-auto px-6" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ marginBottom: "1.5rem" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(124,106,255,0.1)", border: "1px solid rgba(124,106,255,0.25)", color: "#a78bfa", padding: "0.3rem 0.9rem", borderRadius: "999px", fontSize: "0.75rem", fontFamily: "'Syne', sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(124,106,255,0.1)", border: "1px solid rgba(124,106,255,0.25)", color: "#a78bfa", padding: "0.3rem 0.9rem", borderRadius: "999px", fontSize: "0.75rem", fontFamily: "'Epilogue', sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>
               <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#7c6aff" }} />
               On-Chain Research
             </span>
           </div>
 
-          <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.1, color: "#fff", letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
+          <h1 style={{ fontFamily: "'Epilogue', sans-serif", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.1, color: "#fff", letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>
             Cardano Deep Dives<br />
             <span style={{ color: "rgba(255,255,255,0.4)" }}>Daten, Analysen, Insights</span>
           </h1>
@@ -712,7 +712,7 @@ export default function BlogPage() {
       {/* ── ARTICLE GRID ───────────────────────────────────────────── */}
       <main id="articles" className="max-w-7xl mx-auto px-6 pb-24">
         <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "2.5rem" }}>
-          <h2 style={{ fontFamily: "'Syne', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.125rem" }}>Alle Artikel</h2>
+          <h2 style={{ fontFamily: "'Epilogue', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.125rem" }}>Alle Artikel</h2>
           <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.8rem" }}>{posts.length} Beiträge</span>
         </div>
 
@@ -725,11 +725,11 @@ export default function BlogPage() {
             {posts.map((post) => (
               <article key={post.id} className="post-card" onClick={() => setSelectedPost(post.id)}>
                 <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ color: "#7c6aff", fontFamily: "'Syne', sans-serif", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>Forschung</span>
+                  <span style={{ color: "#7c6aff", fontFamily: "'Epilogue', sans-serif", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>Forschung</span>
                   <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.75rem" }}>{getReadingTime(post.content)} Min.</span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Syne', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.15rem", lineHeight: 1.35, marginBottom: "0.875rem", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                <h3 style={{ fontFamily: "'Epilogue', sans-serif", color: "#fff", fontWeight: 700, fontSize: "1.15rem", lineHeight: 1.35, marginBottom: "0.875rem", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                   {post.title}
                 </h3>
 
@@ -739,7 +739,7 @@ export default function BlogPage() {
 
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "1.125rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                   <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.75rem" }}>{formatDate(post.created_at)}</span>
-                  <span style={{ color: "#7c6aff", fontSize: "0.8rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.25rem", fontFamily: "'Syne', sans-serif" }}>
+                  <span style={{ color: "#7c6aff", fontSize: "0.8rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.25rem", fontFamily: "'Epilogue', sans-serif" }}>
                     Weiterlesen
                     <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -755,7 +755,7 @@ export default function BlogPage() {
       {/* ── FOOTER ─────────────────────────────────────────────────── */}
       <footer className="site-footer">
         <div className="max-w-7xl mx-auto px-6 py-8" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif" }}>
+          <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", fontFamily: "'Manrope', sans-serif" }}>
             © 2026 Cardano Research Journal. Alle Rechte vorbehalten.
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
